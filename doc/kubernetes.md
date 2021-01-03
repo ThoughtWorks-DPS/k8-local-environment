@@ -1,16 +1,18 @@
-## 2. Local Kubernetes install/setup (with userspace virtualization, on macos) 
+## 3. Local Kubernetes install/setup (with userspace virtualization, on macos) 
 
-Virtualization running in Userspace will consistently outperform typical virtualization applications, all else being equal. RAM is a potentially critical requirement. (16gb at least in order to support istio.)  
+Virtualization running in Userspace will consistently outperform full virtualization, all else being equal. RAM is a potentially critical requirement. (8gb at least in order to support istio.)  
 
 • [minikube](https://minikube.sigs.k8s.io) on [hyperkit(https://github.com/moby/hyperkit)], or  
 
-• [docker-for-mac edge](https://docs.docker.com/docker-for-mac/edge-release-notes/) with kubernetes  
+• [docker desktop](https://www.docker.com/products/docker-desktop) with kubernetes  
 
-(_note. See prereqs.sh for a potential run-once-setup option for Macs, or look at the notes related to that helper script in the [Local Tools](doc/tools.md) section_)  
+_Note: in either case, you will need docker running locally as well_  
 
 ### minikube
 
-• install hyperkit and minikube  
+• install hyperkit and minikube
+
+_v1.16.0 (which manages kubernetes v1.20.0) used for these examples.   
 
 ```bash
 $ brew install hyperkit
@@ -19,39 +21,42 @@ $ brew install minikube
 
 • configure minikube settings and start  
 
-```
+These are very performant config setting, but adjust to fit your development hardware.  
+
+```bash
 $ minikube config set vm-driver hyperkit
 $ minikube config set memory 12288
 $ minikube config set cpus 6
-$ minikube start --extra-config=kubelet.authentication-token-webhook=true
 ```
 
-• Launch minikube LoadBalancer *In separate terminal window*  
-
-```
-$ minikube [tunnel](https://minikube.sigs.k8s.io/docs/tasks/loadbalancer/#using-minikube-tunnel)
-```
-
-### docker-for-mac  
-
-• Install Docker-for-Mac edge and enable Kubernetes under preferences  
-
-until Docker-for-Mac edge releases Kubernetes version >= 1.16, the following additionl  
-configuration is needed to assure admissioncontroller customization health   
-
-• Edit kubernetes manifest AdmissionController settings  
-
+You can use the invoke helper script to start minikube wiith the following configuration:  
 ```bash
-$ screen  ~/Library/Containers/com.docker.docker/Data/vms/0/tty  
-$ vi /etc/kubernetes/manifests/kube-apiserver.yaml  
+$ inv k8s.start
+```
+--insecure-registry "10.0.0.0/24"  
+--addons registry  
+--extra-config=kubelet.authentication-token-webhook=true   
+--extra-config=kubelet.authorization-mode=Webhook  
+--extra-config=scheduler.address=0.0.0.0  
+--extra-config=controller-manager.address=0.0.0.0  
+
+and this will run the minikbue registry network forwarder:  
+```
+$ docker run -d --rm -it --name=registry-fwd --network=host alpine ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
 ```
 
-edit the following line: (_add text inside the quotes, but not the quotes_)  
+(_Use `minikube delete` to rermove the hyperkit vm and all configuration._)  
 
+To remove the registry network forwarder use:
 ```
---enable-admission-plugins=Initializers,NodeRestriction",MutatingAdmissionWebhook,ValidatingAdmissionWebhook"  
+$ docker stop registry-fwd
 ```
 
-• Restart Docker-for-Mac   
+### Local k8s security profile
+
+To see how the default local development configuration compares to EKS using the CIS benchmark:  
+```bash
+$ inv k8s.bench
+```
 
 [Return](../README.md)

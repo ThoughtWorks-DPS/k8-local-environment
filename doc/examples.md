@@ -1,17 +1,10 @@
-## 6. Examples
+## 7. Code Examples
 
-### Bookinfo from Istio (pending)
+The code examples focus on different aspects of developing locally for kubernetes deployed services.  
 
-Deploy the Istio bookinfo demo app.  
-
-```bash
-$ inv deploy.bookinfo
-```
-
-
-
-
-
+1. [Httpbin](examples/httpbin/README.md): Local tls ingress and domain name resolution.  
+1. [Guestbook](examples/guestbook/README.md): Helm and deploy to minikube from local registry  
+1. 
 
 
 
