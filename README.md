@@ -7,7 +7,6 @@
   <h3>ThoughtWorks DPS Local Kubernetes Development Environment</h3>
   <h1>twdps/k8-local-develop</h1>
 
-  <h5>A Continous Integration focused Alpine Docker image built to run on CircleCI</h5>
 </div>
 <br />
 
