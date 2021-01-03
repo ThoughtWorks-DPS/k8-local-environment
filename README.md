@@ -1,6 +1,6 @@
 <div align="center">
 	<p>
-		<img alt="kubernetes Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/kubernetes.png" width="75" />
+		<img alt="kubernetes Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/kubernetes.png" width="70" />
 		<img alt="istio Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/istio.png?sanitize=true" width="75" />
 		<img alt="opa Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/opa.png?sanitize=true" width="75" />
 	</p>
