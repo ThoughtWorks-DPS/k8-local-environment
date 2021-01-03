@@ -1,11 +1,11 @@
 <div align="center">
 	<p>
-		<img alt="kubernetes Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/kubernetes.png?sanitize=true" width="75" />
+		<img alt="kubernetes Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/kubernetes.png" />
 		<img alt="istio Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/istio.png?sanitize=true" width="75" />
 		<img alt="opa Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/k8-local-environment/master/doc/opa.png?sanitize=true" width="75" />
 	</p>
-  <h3>ThoughtWorks DPS Local Kubernetes Development Environment</h3>
-  <h1>twdps/k8-local-develop</h1>
+  <h3>ThoughtWorks DPS Example Local Kubernetes Development Environment</h3>
+  <h1>twdps/k8-local-environment</h1>
 
 </div>
 <br />
